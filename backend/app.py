@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, send_file
+from flask import Flask, request, jsonify, send_file,Response
 from flask_cors import CORS
 import requests
 from bs4 import BeautifulSoup
@@ -70,6 +70,101 @@ class PriceComparison:
                     'FlipkartPrice': flipkart_price
                 })
 
+    def parseTV(self, response):
+        content = BeautifulSoup(response.text, 'lxml')
+        deck = content.find('ul', {'class': 'sctn prdct-grid prdct-grid--s prdct-grid--list prdct-grid--prdct-s prdct-grid--spcftn-4 prdct-grid--spcftn-4-cmpr clearfix'})
+        if deck:
+            for card in deck.find_all('li', {'class': 'prdct-item clearfix card prdt-item-other msp_othr_items'}):
+                name = card.find('div', {'class': 'prdct-item__img-wrpr js-open-link ga_event_cls'}).find('img')['alt']
+                details = card.find('ul', {'class': 'prdct-item__spcftn-clmn exp_lists'}).text
+                ratings = card.find('div', {'class': 'specs_rate algn-left'})
+                rating = ratings.find_next('span').text.strip() if ratings else "N/A"
+                amazon_span = card.find('span', text='Amazon')
+                amazon_price = amazon_span.find_next('div').text.strip() if amazon_span else "N/A"
+                croma_span = card.find('span', text='Croma')
+                croma_price = croma_span.find_next('div').text.strip() if croma_span else "N/A"
+                flipkart_span = card.find('span', text='Flipkart')
+                flipkart_price = flipkart_span.find_next('div').text.strip() if flipkart_span else "N/A"
+                self.results.append({
+                    'name': name,
+                    'Details': details,
+                    'Ratings': rating,
+                    'AmazonPrice': amazon_price,
+                    'ChromaPrice': croma_price,
+                    'FlipkartPrice': flipkart_price
+                })
+
+    def parseAudio(self, response):
+        content = BeautifulSoup(response.text, 'lxml')
+        deck = content.find('ul', {'class': 'sctn prdct-grid prdct-grid--s prdct-grid--list prdct-grid--prdct-s prdct-grid--spcftn-4 prdct-grid--spcftn-4-cmpr clearfix'})
+        if deck:
+            for card in deck.find_all('li', {'class': 'prdct-item clearfix card prdt-item-other msp_othr_items'}):
+                name = card.find('div', {'class': 'prdct-item__img-wrpr js-open-link ga_event_cls'}).find('img')['alt']
+                details = card.find('ul', {'class': 'prdct-item__spcftn-clmn exp_lists'}).text
+                ratings = card.find('div', {'class': 'specs_rate algn-left'})
+                rating = ratings.find_next('span').text.strip() if ratings else "N/A"
+                amazon_span = card.find('span', text='Amazon')
+                amazon_price = amazon_span.find_next('div').text.strip() if amazon_span else "N/A"
+                croma_span = card.find('span', text='Croma')
+                croma_price = croma_span.find_next('div').text.strip() if croma_span else "N/A"
+                flipkart_span = card.find('span', text='Flipkart')
+                flipkart_price = flipkart_span.find_next('div').text.strip() if flipkart_span else "N/A"
+                self.results.append({
+                    'name': name,
+                    'Details': details,
+                    'Ratings': rating,
+                    'AmazonPrice': amazon_price,
+                    'ChromaPrice': croma_price,
+                    'FlipkartPrice': flipkart_price
+                })
+
+    def parseAccessories(self, response):
+        content = BeautifulSoup(response.text, 'lxml')
+        deck = content.find('ul', {'class': 'sctn prdct-grid prdct-grid--s prdct-grid--list prdct-grid--prdct-s prdct-grid--spcftn-4 prdct-grid--spcftn-4-cmpr clearfix'})
+        if deck:
+            for card in deck.find_all('li', {'class': 'prdct-item clearfix card prdt-item-other msp_othr_items'}):
+                name = card.find('div', {'class': 'prdct-item__img-wrpr js-open-link ga_event_cls'}).find('img')['alt']
+                details = card.find('ul', {'class': 'prdct-item__spcftn-clmn exp_lists'}).text
+                ratings = card.find('div', {'class': 'specs_rate algn-left'})
+                rating = ratings.find_next('span').text.strip() if ratings else "N/A"
+                amazon_span = card.find('span', text='Amazon')
+                amazon_price = amazon_span.find_next('div').text.strip() if amazon_span else "N/A"
+                croma_span = card.find('span', text='Croma')
+                croma_price = croma_span.find_next('div').text.strip() if croma_span else "N/A"
+                flipkart_span = card.find('span', text='Flipkart')
+                flipkart_price = flipkart_span.find_next('div').text.strip() if flipkart_span else "N/A"
+                self.results.append({
+                    'name': name,
+                    'Details': details,
+                    'Ratings': rating,
+                    'AmazonPrice': amazon_price,
+                    'ChromaPrice': croma_price,
+                    'FlipkartPrice': flipkart_price
+                })
+
+    def parseAppliance(self, response):
+        content = BeautifulSoup(response.text, 'lxml')
+        deck = content.find('ul', {'class': 'sctn prdct-grid prdct-grid--s prdct-grid--list prdct-grid--prdct-s prdct-grid--spcftn-4 prdct-grid--spcftn-4-cmpr clearfix'})
+        if deck:
+            for card in deck.find_all('li', {'class': 'prdct-item clearfix card prdt-item-other msp_othr_items'}):
+                name = card.find('div', {'class': 'prdct-item__img-wrpr js-open-link ga_event_cls'}).find('img')['alt']
+                details = card.find('ul', {'class': 'prdct-item__spcftn-clmn exp_lists'}).text
+                ratings = card.find('div', {'class': 'specs_rate algn-left'})
+                rating = ratings.find_next('span').text.strip() if ratings else "N/A"
+                amazon_span = card.find('span', text='Amazon')
+                amazon_price = amazon_span.find_next('div').text.strip() if amazon_span else "N/A"
+                croma_span = card.find('span', text='Croma')
+                croma_price = croma_span.find_next('div').text.strip() if croma_span else "N/A"
+                flipkart_span = card.find('span', text='Flipkart')
+                flipkart_price = flipkart_span.find_next('div').text.strip() if flipkart_span else "N/A"
+                self.results.append({
+                    'name': name,
+                    'Details': details,
+                    'Ratings': rating,
+                    'AmazonPrice': amazon_price,
+                    'ChromaPrice': croma_price,
+                    'FlipkartPrice': flipkart_price
+                })
 
     def to_csv(self, filename):
         with open(filename, 'w', newline='') as csv_file:
@@ -81,8 +176,8 @@ class PriceComparison:
             else:
                 raise ValueError("No data available to write to CSV")
 
-@app.route('/scrape', methods=['POST'])
-def scrape():
+@app.route('/scrape/<category>', methods=['POST'])
+def scrape(category):
     data = request.get_json()
     url = data.get('url')
     if not url:
@@ -93,7 +188,20 @@ def scrape():
     if response.status_code != 200:
         return jsonify({'error': 'Failed to fetch the URL'}), 400
 
-    scraper.parse(response)
+    if category == 'mobiles':
+        scraper.parseMobile(response)
+    elif category == 'laptops':
+        scraper.parseLaptop(response)
+    elif category == 'tv':
+        scraper.parseTV(response)
+    elif category == 'audio':
+        scraper.parseAudio(response)
+    elif category == 'accessories':
+        scraper.parseAccessories(response)
+    elif category == 'appliances':
+        scraper.parseAppliance(response)
+    # Add more conditions for other categories
+
     try:
         scraper.to_csv('scraped_data.csv')
     except ValueError as e:
@@ -109,5 +217,17 @@ def download():
     else:
         return jsonify({'error': 'File not found'}), 404
 
+
+@app.route('/view', methods=['GET'])
+def view_csv():
+    filename = 'scraped_data.csv'
+    if os.path.exists(filename):
+        with open(filename, 'r') as csv_file:
+            csv_data = csv_file.read()
+        return Response(csv_data, mimetype='text/csv')
+    else:
+        return jsonify({'error': 'File not found'}), 404
+
+    
 if __name__ == '__main__':
     app.run(debug=True)
